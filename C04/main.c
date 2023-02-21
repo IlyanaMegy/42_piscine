@@ -94,27 +94,27 @@ int	main(int argc, char *argv[])
 
 	print_str("--------------------------\n");
 	print_str("----------putstr----------\n");
-	// char *s1;
-	// char *s2;
+	char *s1;
+	char *s2;
 
-	// if (argc > 2)
-	// {
-	// 	s1 = argv[1];
-	// 	s2 = argv[2];
-	// 	print_str("s1 = \"");
-	// }
-	// else
-	// {
-	// 	s1 = "Suc";
-	// 	s2 = "cess";
-	// 	print_str("/!\\ no args entered\ns1 = \"");
-	// }
-	// print_str(s1);
-	// print_str("\"\ns2 = \"");
-	// print_str(s2);
-	// print_str("\"\n");
-	// ft_putstr(s1);
-	// ft_putstr(s2);
+	if (argc > 2)
+	{
+		s1 = argv[1];
+		s2 = argv[2];
+		print_str("s1 = \"");
+	}
+	else
+	{
+		s1 = "Suc";
+		s2 = "cess";
+		print_str("/!\\ no args entered\ns1 = \"");
+	}
+	print_str(s1);
+	print_str("\"\ns2 = \"");
+	print_str(s2);
+	print_str("\"\n");
+	ft_putstr(s1);
+	ft_putstr(s2);
 	print_str("\n\n");
 
 	print_str("--------------------------\n");
