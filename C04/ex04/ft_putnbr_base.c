@@ -16,52 +16,54 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-int	is_occured(char *str, int n, char c)
-{
-	while (str[n])
-	{
-		if (str[n] == c)
-			return (1);
-		++n;
-	}
-	return (0);
-}
-
 int	conditions(char *base)
 {
 	int	i;
+	int	n;
 
 	i = 0;
 	while (base[i])
 	{
+		if (base[i] == 32 || (base[i] >= '\t' && base[i] <= '\r'))
+			return (0);
 		if (base[i] == 43 || base[i] == 45)
 			return (0);
-		if (is_occured(base, (i + 1), base[i]))
-			return (0);
+		n = i + 1;
+		while (base[n])
+		{
+			if (base[n] == base[i])
+				return (0);
+			++n;
+		}
 		++i;
 	}
+	if (i < 2)
+		return (0);
 	return (1);
 }
 
 void	ft_putnbr_base(int nbr, char *base)
 {
-	int	what_base;
+	int		l_base;
+	long	n;
 
-	what_base = 0;
-	while (base[what_base])
-		what_base++;
-	if (conditions(base) && what_base > 1)
+	l_base = 0;
+	n = nbr;
+	while (base[l_base])
+		l_base++;
+	if (conditions(base))
 	{
-		if (nbr < 0)
+		if (n < 0)
 		{
 			ft_putchar('-');
-			ft_putchar(base[-nbr / what_base]);
-			ft_putchar(base[-nbr % what_base]);
+			n = -n;
 		}
-		else
+		if (n < l_base)
+			ft_putchar(base[n]);
+		if (n >= l_base)
 		{
-			ft_putchar(base[nbr / what_base]);
-			ft_putchar(base[nbr % what_base]);
+			ft_putnbr_base(n / l_base, base);
+			ft_putnbr_base(n % l_base, base);
 		}
 	}
 }

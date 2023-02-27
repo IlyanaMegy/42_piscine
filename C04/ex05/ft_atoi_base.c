@@ -17,8 +17,6 @@ int	base_conditions(char *base)
 	int	n;
 
 	i = 0;
-	if (*base <= 1)
-		return (0);
 	while (base[i])
 	{
 		if (base[i] == 32 || (base[i] >= '\t' && base[i] <= '\r'))
@@ -34,6 +32,8 @@ int	base_conditions(char *base)
 		}
 		++i;
 	}
+	if (i < 2)
+		return (0);
 	return (1);
 }
 
@@ -48,40 +48,58 @@ int	in_base(char c, char *base)
 	return (0);
 }
 
+int	get_int_of_base(char c, char *base)
+{
+	int	i;
+
+	i = 0;
+	while (base[i])
+	{
+		if (base[i] == c)
+		{
+			return (i);
+		}
+		i++;
+	}
+	return (i);
+}
+
+int	to_int(char *str, char *base, int l_base)
+{
+	int	res;
+
+	res = 0;
+	while (*str && in_base(*str, base))
+	{
+		res *= l_base;
+		res += get_int_of_base(*str, base);
+		str++;
+	}
+	return (res);
+}
+
 int	ft_atoi_base(char *str, char *base)
 {
 	int	res;
-	int	minus;
-	int	j;
+	int	sign;
+	int	base_len;
 
 	res = 0;
+	sign = 1;
 	if (base_conditions(base))
 	{
-		minus = 1;
 		while (*str == 32 || (*str >= '\t' && *str <= '\r'))
-			str++;
+			++str;
 		while (*str == '-' || *str == '+')
 		{
 			if (*str == '-')
-				minus = -minus;
+				sign *= -1;
 			str++;
 		}
-		j = 0;
-		while (in_base(*str, base))
-		{
-			while (base[j] != *str)
-			{
-				printf("j = %d, %c = %c\n", j, base[j], *str);
-				j++;
-			}
-			// printf("res = %d %c %c\n", j,base[j], *str);
-			res = res * 10 + (j);
-			j = 0;
-			// printf("res = %d\n", j);
-			str++;
-		}
-		if (minus < 0)
-			res = -res;
+		base_len = 0;
+		while (base[base_len])
+			base_len++;
+		res = to_int(str, base, base_len);
 	}
-	return (res);
+	return (res * sign);
 }
