@@ -1,37 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ultimate_range.c                                :+:      :+:    :+:   */
+/*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilymegy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/22 16:28:22 by ilymegy           #+#    #+#             */
-/*   Updated: 2023/02/22 16:28:23 by ilymegy          ###   ########.fr       */
+/*   Created: 2023/02/09 13:04:05 by ilymegy           #+#    #+#             */
+/*   Updated: 2023/02/09 19:14:43 by ilymegy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
+#include <unistd.h>
 
-int	ft_ultimate_range(int **range, int min, int max)
+void	ft_swap(int *a, int *b)
 {
-	int	i;
-	int	range_len;
+	int	c;
 
-	i = 0;
-	range_len = max - min;
-	if (range_len < 1)
-	{
-		range = NULL;
-		return (0);
-	}
-	range = malloc(sizeof(range) * (range_len));
-	if (range)
-	{
-		while (i != range_len)
-		{
-			range[i] = (min + i);
-			i++;
-		}
-		return (range_len);
-	}
-	return (-1);
+	c = *a;
+	*a = *b;
+	*b = c;
 }

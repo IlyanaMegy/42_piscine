@@ -66,20 +66,21 @@ int	get_int_of_base(char c, char *base)
 
 char	*rev(char *str, int len)
 {
-	int i;
-	char tmp;
+	int		i;
+	int		j;
+	char	tmp;
 
 	i = 0;
+	j = len - 1;
 	if (str[i] == '-')
 		i++;
-	len -= 1;
-	while (i < len)
+	while (i <= j)
 	{
 		tmp = str[i];
-		str[i] = str[len];
-		str[len] = tmp;
+		str[i] = str[j];
+		str[j] = tmp;
 		i++;
-		len--;
+		j--;
 	}
 	return (str);
 }

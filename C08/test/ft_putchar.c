@@ -1,37 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ultimate_range.c                                :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilymegy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/22 16:28:22 by ilymegy           #+#    #+#             */
-/*   Updated: 2023/02/22 16:28:23 by ilymegy          ###   ########.fr       */
+/*   Created: 2023/02/08 11:42:22 by ilymegy           #+#    #+#             */
+/*   Updated: 2023/02/08 13:04:07 by ilymegy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
+#include "ft.h"
+#include <unistd.h>
 
-int	ft_ultimate_range(int **range, int min, int max)
+void	ft_putchar(char c)
 {
-	int	i;
-	int	range_len;
-
-	i = 0;
-	range_len = max - min;
-	if (range_len < 1)
-	{
-		range = NULL;
-		return (0);
-	}
-	range = malloc(sizeof(range) * (range_len));
-	if (range)
-	{
-		while (i != range_len)
-		{
-			range[i] = (min + i);
-			i++;
-		}
-		return (range_len);
-	}
-	return (-1);
+	write(1, &c, 1);
 }

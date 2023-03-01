@@ -14,7 +14,7 @@
 int		get_int_of_base(char c, char *base);
 char	*rev(char *str, int len);
 int		base_conditions(char *base);
-int	in_base(char c, char *base);
+int		in_base(char c, char *base);
 
 int	to_int(char *str, char *base, int l_base)
 {
@@ -82,13 +82,15 @@ int	try(int nbr, char *base)
 	return (i);
 }
 
-void	ft_putnbr_base(int nbr, char *base, char *res, int i)
+void	ft_putnbr_base(int nbr, char *base, char *res)
 {
 	int		l_base;
+	int		i;
 	long	n;
 
 	l_base = 0;
 	n = nbr;
+	i = 0;
 	while (base[l_base])
 		l_base++;
 	if (n < 0)
@@ -105,28 +107,24 @@ void	ft_putnbr_base(int nbr, char *base, char *res, int i)
 	}
 	if (n < l_base)
 		res[i] = base[n];
+	res[i + 1] = 0;
 }
 
 char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 {
 	char	*nbr_converted;
-	int		nbr_int;
 	int		len_nbr_converted;
 
-	if (base_conditions(base_from) && base_conditions(base_to))
-	{
-		if (ft_atoi_base(nbr, base_from))
-		{
-			nbr_int = ft_atoi_base(nbr, base_from);
-			len_nbr_converted = try(nbr_int, base_to);
-			nbr_converted = '\0';
-			nbr_converted = malloc(len_nbr_converted * sizeof(char));
-			if (!nbr_converted)
-				return (NULL);
-			ft_putnbr_base(nbr_int, base_to, nbr_converted, 0);
-			return (rev(nbr_converted, len_nbr_converted));
-		}
+	if (!base_conditions(base_from) || !base_conditions(base_to))
 		return (NULL);
+	if (ft_atoi_base(nbr, base_from))
+	{
+		len_nbr_converted = try(ft_atoi_base(nbr, base_from), base_to);
+		nbr_converted = (char *)malloc((len_nbr_converted) * sizeof(char));
+		if (!nbr_converted)
+			return (NULL);
+		ft_putnbr_base(ft_atoi_base(nbr, base_from), base_to, nbr_converted);
+		return (rev(nbr_converted, len_nbr_converted));
 	}
 	return (NULL);
 }

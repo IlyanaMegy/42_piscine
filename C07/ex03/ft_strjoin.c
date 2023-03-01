@@ -9,11 +9,9 @@
 /*   Updated: 2023/02/22 19:45:30 by ilymegy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 
-int	simple_len(char *str)
+int	len(char *str)
 {
 	int	i;
 
@@ -25,17 +23,21 @@ int	simple_len(char *str)
 	return (i);
 }
 
-char	*ft_strcat(char *dest, char *src, int f)
+char	*ft_strcat(char *dest, char *src)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (src[i])
+	j = 0;
+	while (dest[i])
+		i++;
+	while (src[j])
 	{
-		dest[f] = src[i];
-		++i;
-		f++;
+		dest[i + j] = src[j];
+		j++;
 	}
+	dest[i + j] = 0;
 	return (dest);
 }
 
@@ -48,15 +50,10 @@ int	len_strs(int size, char **strs, char *sep)
 	res = 0;
 	while (i < size)
 	{
-		res += simple_len(strs[i]);
+		res += len(strs[i]);
 		i++;
 	}
-	i = 0;
-	while (i < (size - 1))
-	{
-		res += simple_len(sep);
-		i++;
-	}
+	res += (size - 1) * len(sep) + 1;
 	return (res);
 }
 
@@ -64,27 +61,25 @@ char	*ft_strjoin(int size, char **strs, char *sep)
 {
 	int		i;
 	int		f;
-	char	*final_str;
+	char	*str;
 
-	if (size == 0)
+	if (size > 0)
 	{
-		final_str = '\0';
-		return (final_str);
+		str = (char *)malloc((len_strs(size, strs, sep)) * sizeof(char));
+		if (!str)
+			return (NULL);
+		i = 0;
+		f = 0;
+		while (i < size)
+		{
+			ft_strcat(str, strs[i]);
+			if (i < (size - 1))
+				ft_strcat(str, sep);
+			i++;
+		}
+		str[f] = '\0';
 	}
-	final_str = (char *)malloc((len_strs(size, strs, sep)) * sizeof(char) + 1);
-	if (!final_str)
-		return (NULL);
-	i = 0;
-	f = 0;
-	while (i < size)
-	{
-		ft_strcat(final_str, strs[i], f);
-		f += simple_len(strs[i]);
-		if (i < (size - 1))
-			ft_strcat(final_str, sep, f);
-		f += simple_len(sep);
-		i++;
-	}
-	final_str[f] = '\0';
-	return (final_str);
+	str = malloc(sizeof(char));
+	*str = 0;
+	return (str);
 }
