@@ -23,21 +23,17 @@ int	len(char *str)
 	return (i);
 }
 
-char	*ft_strcat(char *dest, char *src)
+char	*ft_strcat(char *dest, int at, char *src)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	while (dest[i])
-		i++;
-	while (src[j])
+	while (src[i])
 	{
-		dest[i + j] = src[j];
-		j++;
+		dest[at + i] = src[i];
+		i++;
 	}
-	dest[i + j] = 0;
+	dest[at + i] = 0;
 	return (dest);
 }
 
@@ -45,22 +41,47 @@ int	len_strs(int size, char **strs, char *sep)
 {
 	int	i;
 	int	res;
+	int	empty;
 
 	i = 0;
 	res = 0;
+	empty = 0;
 	while (i < size)
 	{
 		res += len(strs[i]);
+		if (!strs[i][0])
+			empty++;
 		i++;
 	}
-	res += (size - 1) * len(sep) + 1;
+	res += (size - 1 - empty) * len(sep) + 1;
 	return (res);
+}
+
+void	add_to_str(int size, char **strs, char *str, char *sep)
+{
+	int	i;
+	int	at;
+
+	i = 0;
+	at = 0;
+	while (i < size)
+	{
+		if (strs[i][0])
+		{
+			ft_strcat(str, at, strs[i]);
+			at += len(strs[i]);
+			if (i < (size - 1))
+			{
+				ft_strcat(str, at, sep);
+				at += len(sep);
+			}
+		}
+		i++;
+	}
 }
 
 char	*ft_strjoin(int size, char **strs, char *sep)
 {
-	int		i;
-	int		f;
 	char	*str;
 
 	if (size > 0)
@@ -68,16 +89,9 @@ char	*ft_strjoin(int size, char **strs, char *sep)
 		str = (char *)malloc((len_strs(size, strs, sep)) * sizeof(char));
 		if (!str)
 			return (NULL);
-		i = 0;
-		f = 0;
-		while (i < size)
-		{
-			ft_strcat(str, strs[i]);
-			if (i < (size - 1))
-				ft_strcat(str, sep);
-			i++;
-		}
-		str[f] = '\0';
+		add_to_str(size, strs, str, sep);
+		str[len(str)] = '\0';
+		return (str);
 	}
 	str = malloc(sizeof(char));
 	*str = 0;

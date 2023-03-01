@@ -18,20 +18,19 @@ int	ft_ultimate_range(int **range, int min, int max)
 
 	i = 0;
 	range_len = max - min;
-	if (range_len < 1)
+	if (min >= max)
 	{
-		range = NULL;
+		*range = 0;
 		return (0);
 	}
-	range = malloc(sizeof(range) * (range_len));
-	if (range)
+	*range = (int *)malloc(sizeof(int) * range_len);
+	if (!range)
+		return (-1);
+	while (min < max)
 	{
-		while (i != range_len)
-		{
-			range[i] = (min + i);
-			i++;
-		}
-		return (range_len);
+		(*range)[i] = min;
+		min++;
+		i++;
 	}
-	return (-1);
+	return (range_len);
 }

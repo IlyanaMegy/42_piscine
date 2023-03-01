@@ -7,6 +7,8 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+// use cc -Wall -Werror -Wall -fsanitize=address main.c -g
+// use valgrind ./a.out
 
 int	main(void)
 {
@@ -55,39 +57,81 @@ int	main(void)
 	// printf("--------------------------\n");
 	// printf("-----------join-----------\n");
 	// char *argv[5];
-	// argv[0] = "said";
+	// argv[0] = "";
 	// argv[1] = "this";
 	// argv[2] = "is";
 	// argv[3] = "a";
 	// argv[4] = "success";
 
-	// printf("%s\n",  ft_strjoin(5, argv, "_o_"));
+	// char *res;
 
-	// printf("test_null = %s\n", ft_strjoin(0, argv, "_o_"));
+	// res = ft_strjoin(5, argv, "_o_");
+	// printf("%s\n", res);
+	// free(res);
+	// // printf("%s\n",  ft_strjoin(5, argv, "_o_"));
+
+	// res = ft_strjoin(0, argv, "_o_");
+	// printf("test_null = %s\n", res);
+	// free(res);
 	// printf("\n\n");
 
+	// int		offset;
+	// char	**strs;
+	// char	*res_str;
 
-	printf("--------------------------\n");
-	printf("-------convert base-------\n");
+	// strs = malloc(3 * sizeof(char *));
+	// if (strs == NULL)
+	// 	return (1);
+	// offset = 0;
+	// while (offset < 3)
+	// {
+	// 	strs[offset] = "abc";
+	// 	offset++;
+	// }
+	// res_str = ft_strjoin(3, strs, ", ");
+	// if (res_str == NULL)
+	// 	return (1);
+	// printf("res: %s\n", res_str);
+	// free(strs);
+	// free(res_str);
+	// return (0);
 
-	char *ft_convert_base(char *nbr, char *base_from, char *base_to);
-	//test = ft_convert_base("\n  \t-52", "01234567", "0123456789abcdef");
+
+	// printf("--------------------------\n");
+	// printf("-------convert base-------\n");
+
+	// char *ft_convert_base(char *nbr, char *base_from, char *base_to);
+	// char *test ;
+	
+	// test = ft_convert_base("\n  \t-52", "01234567", "0123456789abcdef");
 	// printf("test = %s\n", test);
-	// // while (*test)
-	// // {
-	// // 	printf("%c", *test);
-	// // 	test++;
-	// // }
-	// printf("%c\n", test[3]);
+	// while (*test)
+	// {
+	// 	printf("%c", *test);
+	// 	test++;
+	// }
+	// printf("\n%c\n", test[3]);
+	// free(test);
 
 	// printf("%s in base %s = %s in base %s\n", "2a", "0123456789abcdef", ft_convert_base("2a", "0123456789abcdef", "01234567"), "01234567");
 	// printf("%s in base %s = %s in base %s\n", "2a", "0123456789abcdef", ft_convert_base("2a", "0123456789abcdef", "01"), "01");
-	// printf("%s in base %s = %s in base %s\n", "42", "0123456789", ft_convert_base("++-+--420vu", "01234561789", "01"), "01");
+	// printf("%s in base %s = %s in base %s\n", "420", "0123456789", ft_convert_base("++-+--420vu", "0123456789", "01"), "01");
 	// printf("%s in base %s = %s in base %s\n", "-52", "01234567", ft_convert_base("\n  \t-52", "01234567", "0123456789abcdef"), "0123456789abcdef");
 	
-	printf("42:%s\n", ft_convert_base("--2a", "0123456789abcdef", "0123456789"));
-	printf("-2a:%s\n", ft_convert_base("-42", "0123456789", "0123456789abcdef"));
-	printf("\n\n");
+	// test = ft_convert_base("2a", "0123456789abcdef", "01234567");
+	// printf("test = %s\n", test);
+	// free(test);
+	// test = ft_convert_base("2a", "0123456789abcdef", "01");
+	// printf("test = %s\n", test);
+	// free(test);
+	// test = ft_convert_base("0", "0123456789", "poneyvif");
+	// printf("test = %s\n", test);
+	// free(test);
+	// test = ft_convert_base("\n  \t-52", "01234567", "0123456789abcdef");
+	// printf("test = %s\n", test);
+
+	// free(test);
+	// printf("\n\n");
 
 
 	// printf("--------------------------\n");

@@ -74,7 +74,7 @@ char	*rev(char *str, int len)
 	j = len - 1;
 	if (str[i] == '-')
 		i++;
-	while (i <= j)
+	while (i <= ((len - 1) / 2))
 	{
 		tmp = str[i];
 		str[i] = str[j];
@@ -82,5 +82,6 @@ char	*rev(char *str, int len)
 		i++;
 		j--;
 	}
+	str[len] = '\0';
 	return (str);
 }
