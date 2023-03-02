@@ -12,20 +12,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int		get_int_of_base(char c, char *base);
-char	*rev(char *str, int len);
 int		base_conditions(char *base);
 int		in_base(char c, char *base);
+int		ft_strlen(char *str);
 
 int	to_int(char *str, char *base, int l_base)
 {
 	int	res;
 
 	res = 0;
-	while (*str && in_base(*str, base))
+	while (*str && in_base(*str, base) != -1)
 	{
-		res *= l_base;
-		res += get_int_of_base(*str, base);
+		res = res * l_base + (in_base(*str, base));
 		str++;
 	}
 	return (res);
@@ -45,76 +43,66 @@ int	ft_atoi_base(char *str, char *base)
 			sign *= -1;
 		str++;
 	}
-	base_len = 0;
-	while (base[base_len])
-		base_len++;
+	base_len = ft_strlen(base);
 	return ((to_int(str, base, base_len) * sign));
 }
 
 int	try(int nbr, char *base)
 {
-	int		l_base;
-	long	n;
-	int		i;
+	int	l_base;
+	int	i;
 
 	i = 0;
-	l_base = 0;
-	n = nbr;
-	while (base[l_base])
-		l_base++;
-	if (n < 0)
+	l_base = ft_strlen(base);
+	if (nbr == 0)
+		return (1);
+	if (nbr < 0)
 	{
 		i++;
-		n = -n;
+		nbr = -nbr;
 	}
-	while (n >= l_base)
+	while (nbr > 0)
 	{
-		n = n / l_base;
+		nbr = nbr / l_base;
 		i++;
 	}
-	if (n < l_base)
-		i++;
-	return (i);
+	return (i + 1);
 }
 
-void	ft_putnbr_base(int nbr, char *base, char *res)
+void	ft_putnbr_base(int n, char *base, char *res)
 {
-	int		l_base;
-	int		i;
-	long	n;
+	int	l_base;
+	int	i;
 
-	l_base = 0;
-	n = nbr;
-	i = 0;
-	while (base[l_base])
-		l_base++;
+	l_base = ft_strlen(base);
+	i = try(n, base);
+	res[--i] = '\0';
+	if (n == 0)
+		res[0] = base[0];
 	if (n < 0)
 	{
-		res[i] = '-';
-		i++;
+		res[0] = '-';
 		n = -n;
 	}
-	while (n >= l_base)
+	while (n > 0)
 	{
-		res[i] = base[n % l_base];
+		res[--i] = base[n % l_base];
 		n = n / l_base;
-		i++;
 	}
-	if (n < l_base)
-		res[i] = base[n];
 }
 
 char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 {
-	char	*nbr_converted;
-	int		len_nbr_converted;
+	char	*str_end;
+	int		len_end;
 
-	if (!base_conditions(base_from) || !base_conditions(base_to) || !*nbr)
+	if (!base_conditions(base_from) || !base_conditions(base_to))
 		return (NULL);
-	len_nbr_converted = try(ft_atoi_base(nbr, base_from), base_to);
-	nbr_converted = (char *)malloc((len_nbr_converted) * sizeof(char));
-	if (!nbr_converted)
+	len_end = try(ft_atoi_base(nbr, base_from), base_to);
+	str_end = malloc((len_end + 1) * sizeof(char));
+	if (!str_end)
 		return (NULL);
-	ft_putnbr_base(ft_atoi_base(nbr, base_from), base_to, nbr_converted);
-	return (rev(nbr_converted, len_nbr_converted));
+	ft_putnbr_base(ft_atoi_base(nbr, base_from), base_to, str_end);
+	str_end[len_end] = '\0';
+	return (str_end);
 }

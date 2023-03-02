@@ -11,89 +11,89 @@
 /* ************************************************************************** */
 #include <stdlib.h>
 
-int	len(char *str)
+int	ft_strlen(char *str)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
-	{
 		i++;
-	}
 	return (i);
 }
 
-char	*ft_strcat(char *dest, int at, char *src)
+char	*ft_strcat(char *dest, char *src)
 {
 	int	i;
+	int	dest_size;
 
 	i = 0;
+	dest_size = ft_strlen(dest);
 	while (src[i])
 	{
-		dest[at + i] = src[i];
-		i++;
+		dest[dest_size] = src[i];
+		dest_size += 1;
+		i += 1;
 	}
-	dest[at + i] = 0;
+	dest[dest_size] = '\0';
 	return (dest);
 }
 
-int	len_strs(int size, char **strs, char *sep)
+int	ft_strs_size(int size, char **strs, char *sep)
 {
 	int	i;
-	int	res;
-	int	empty;
+	int	len;
 
 	i = 0;
-	res = 0;
-	empty = 0;
+	len = 0;
 	while (i < size)
 	{
-		res += len(strs[i]);
-		if (!strs[i][0])
-			empty++;
-		i++;
+		len += ft_strlen(strs[i]);
+		len += ft_strlen(sep);
+		i += 1;
 	}
-	res += (size - 1 - empty) * len(sep) + 1;
-	return (res);
-}
-
-void	add_to_str(int size, char **strs, char *str, char *sep)
-{
-	int	i;
-	int	at;
-
-	i = 0;
-	at = 0;
-	while (i < size)
-	{
-		if (strs[i][0])
-		{
-			ft_strcat(str, at, strs[i]);
-			at += len(strs[i]);
-			if (i < (size - 1))
-			{
-				ft_strcat(str, at, sep);
-				at += len(sep);
-			}
-		}
-		i++;
-	}
+	len -= ft_strlen(sep);
+	return (len + 1);
 }
 
 char	*ft_strjoin(int size, char **strs, char *sep)
 {
+	int		i;
 	char	*str;
 
-	if (size > 0)
+	i = 0;
+	if (size >= 1)
 	{
-		str = (char *)malloc((len_strs(size, strs, sep)) * sizeof(char));
+		str = (char *)malloc(sizeof(char) * (ft_strs_size(size, strs, sep)
+					+ 1));
 		if (!str)
 			return (NULL);
-		add_to_str(size, strs, str, sep);
-		str[len(str)] = '\0';
+		str[0] = 0;
+		while (i < size)
+		{
+			ft_strcat(str, strs[i]);
+			if (i < size - 1)
+				ft_strcat(str, sep);
+			i++;
+		}
 		return (str);
 	}
-	str = malloc(sizeof(char));
+	str = ((char *)malloc(sizeof(char)));
 	*str = 0;
 	return (str);
 }
+
+// int	main(void)
+// {
+// 	char *argv[4];
+// 	argv[0] = "lol";
+// 	argv[1] = "pouic";
+// 	argv[2] = "";
+// 	argv[3] = "youpiiii";
+
+// 	char *res;
+
+// 	res = ft_strjoin(4, argv, "1234");
+// 	// lol1234pouic12341234youpiiii
+// 	printf("%s\n", res);
+// 	free(res);
+// }
