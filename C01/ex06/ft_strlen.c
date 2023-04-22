@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdio.h>
 
 int	ft_strlen(char *str)
 {
@@ -23,3 +24,10 @@ int	ft_strlen(char *str)
 	}
 	return (n);
 }
+
+// int main()
+// {
+// 	char	my_str[] = "hello world !";
+// 	printf("len of %s = %d\n", my_str, ft_strlen(my_str));
+// 	return 0;
+// }
